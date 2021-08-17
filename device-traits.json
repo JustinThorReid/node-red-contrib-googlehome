@@ -1,0 +1,6 @@
+{
+    "OnOff": {
+        "display": "On Off",
+        "googleKey": "action.devices.traits.OnOff"
+    }
+}

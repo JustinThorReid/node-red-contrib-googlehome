@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType('gConfig', {
+        category: 'config',
+        color: '#a6bbcf',
+        defaults: {
+            clientID: { value: "", required: true },
+            clientSecret: { value: "", required: true },
+        },
+        inputs: 0,
+        outputs: 0,
+        icon: "fitbit-128.png",
+        label: function () {
+            return 'Google Home';
+        },
+    });
+</script>
+
+<script type="text/x-red" data-template-name="gDevice">
+    <div class="form-row">
+        <label for="node-config-input-clientID"><i class="fa fa-tag"></i> <span>Client ID</span></label>
+        <input id="node-config-input-clientID" type="text" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-clientSecret"><i class="fa fa-tag"></i> <span>Client Secret</span></label>
+        <input id="node-config-input-clientSecret" type="text" />
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="fitbit">
+    <p>Hard coded OAuth2 client settings, allows for only 1 client.</p>
+</script>

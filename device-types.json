@@ -1,0 +1,6 @@
+{
+    "Light": {
+        "display": "Light",
+        "googleKey": "action.devices.types.LIGHT"
+    }
+}
