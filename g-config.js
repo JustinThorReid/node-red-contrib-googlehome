@@ -135,16 +135,19 @@ module.exports = function (RED) {
         this.callbackToken = function (req, res) {
             if (!req.body || !req.body.grant_type) {
                 res.sendStatus(401);
+                thisNode.warn("Token request missing grant_type");
                 return;
             }
             if (req.body.client_id !== config.clientID || req.body.client_secret !== config.clientSecret) {
                 res.sendStatus(401);
+                thisNode.warn("Token request missing client id/secret");
                 return;
             }
 
             if (req.body.grant_type === 'authorization_code') {
                 if (req.body.code !== lastAuthToken) {
                     res.sendStatus(401);
+                    thisNode.warn("Token request not matching last auth token");
                     return;
                 }
 
@@ -156,6 +159,7 @@ module.exports = function (RED) {
 
                 if (!lastRefreshToken || req.body.refresh_token !== lastRefreshToken) {
                     res.sendStatus(401);
+                    thisNode.warn("Token request not matching last refresh token");
                     return;
                 }
 
@@ -166,6 +170,7 @@ module.exports = function (RED) {
         this.callbackFulfillment = function (req, res) {
             const lastAccessToken = getLastAccessToken(config.clientID);
             if (!lastAccessToken || !req.headers.authorization || req.headers.authorization !== `Bearer ${lastAccessToken}`) {
+                thisNode.warn("Fulfillment request not matching last access token");
                 res.sendStatus(401);
                 return;
             }
