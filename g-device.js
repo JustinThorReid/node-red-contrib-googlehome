@@ -1,5 +1,3 @@
-const allDevices = {};
-
 module.exports = function (RED) {
     const DEVICE_TYPES = require('./device-types.json');
     const DEVICE_TRAITS = require('./device-traits.json');
@@ -8,6 +6,10 @@ module.exports = function (RED) {
         const thisNode = this;
         RED.nodes.createNode(thisNode, config);
 
+        if (!config.oauthConfig) {
+            thisNode.warn("Missing config node");
+            return;
+        }
         if (!config.deviceTypeKey) {
             thisNode.warn("Missing device type");
             return;
@@ -21,20 +23,42 @@ module.exports = function (RED) {
             return;
         }
 
-        const devicetype = DEVICE_TYPES[config.deviceTypeKey];
+        this.oauthNode = RED.nodes.getNode(config.oauthConfig);
+        const deviceType = DEVICE_TYPES[config.deviceTypeKey];
+        const deviceTraits = config.deviceTraitKey.map(key => DEVICE_TRAITS[key]);
 
         // Register devices
         thisNode.deviceNameList = config.deviceNames.split(',').map((name) => name.trim());
-        thisNode.deviceNameList.forEach(name => {
-            allDevices[`${thisNode.id}_${name}`] = thisNode;
+        thisNode.deviceNameList.forEach((name, index) => {
+            const deviceKey = `${thisNode.id}_${name}`;
+            thisNode.oauthNode.allDevices[deviceKey] = {
+                node: thisNode,
+                sendMsg: (payload) => {
+                    thisNode.send(thisNode.deviceNameList.map(nameToSend => {
+                        if (nameToSend === name) {
+                            return payload;
+                        } else {
+                            return null;
+                        }
+                    }));
+                },
+                sync: {
+                    id: deviceKey,
+                    type: deviceType.googleKey,
+                    traits: deviceTraits.map(trait => trait.googleKey),
+                    name: {
+                        name: name
+                    },
+                    willReportState: false
+                }
+            };
         });
         this.on('close', function () {
             thisNode.deviceNameList.forEach(name => {
-                delete allDevices[`${thisNode.id}_${name}`];
+                delete thisNode.oauthNode.allDevices[`${thisNode.id}_${name}`];
             });
         });
 
-        this.send()
     }
     RED.nodes.registerType("gDevice", gDeviceInNode);
 

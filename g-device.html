@@ -3,46 +3,75 @@
         category: 'social',
         color: '#a6bbcf',
         defaults: {
+            oauthConfig: { type: "gConfig", required: true },
             name: { value: "" },
             deviceTypeKey: { value: "", required: true },
-            deviceTraitKey: { value: "", required: true },
-            deviceNames: { value: "", required: true }
+            deviceTraitKey: { value: [], required: true },
+            deviceNames: { value: "", required: true },
+            outputs: { value: 1 }
         },
         inputs: 0,
         outputs: 1,
         icon: "fitbit-128.png",
         label: function () {
-            return this.name || this.deviceTypeKey.replace(/\-/g, ' ') || 'Google Home';
+            if (this.name) return this.name;
+            if (this.deviceNames.split(',').length === 1) return `Google Home - ${this.deviceNames}`;
+            if (this.deviceTypeKey) return `Google Home - ${this.deviceTypeKey.replace(/\-/g, ' ')}`;
+            return 'Google Home'
         },
         oneditprepare: function () {
             let that = this;
+            let deviceTypes, deviceTraits;
+
+            function updateDeviceDescription() {
+                if (!deviceTypes || !deviceTraits) return;
+
+                $('#deviceTypeDesc').html(deviceTypes[$('#node-input-deviceTypeKey').val()].description + '<br /><br />' + deviceTypes[$('#node-input-deviceTypeKey').val()].traits);
+            }
+
             $.getJSON('/googlehome/deviceTypes').then(function (resourceData) {
+                deviceTypes = resourceData;
                 Object.keys(resourceData).forEach(function (key) {
-                    $('#node-input-deviceTypeKey').append('<option value="' + key + '">' + resourceData[key].display + '</option>')
+                    $('#node-input-deviceTypeKey').append('<option value="' + key + '">' + key + '</option>')
                 })
                 $('#node-input-deviceTypeKey').val(that.deviceTypeKey);
+                updateDeviceDescription();
             });
             $.getJSON('/googlehome/deviceTraits').then(function (resourceData) {
+                deviceTraits = resourceData;
                 Object.keys(resourceData).forEach(function (key) {
-                    $('#node-input-deviceTraitKey').append('<option value="' + key + '">' + resourceData[key].display + '</option>')
+                    $('#node-input-deviceTraitKey').append('<option value="' + key + '">' + key + '</option>')
                 })
                 $('#node-input-deviceTraitKey').val(that.deviceTraitKey);
+                updateDeviceDescription();
             });
+            $('#node-input-deviceNames').change(function (textArea) {
+                that.outputs = $(textArea.target).val().split(',').length;
+            })
+            $('#node-input-deviceTypeKey').change(updateDeviceDescription())
+        },
+        outputLabels: function (index) {
+            return this.deviceNames.split(',')[index];
         }
     });
 </script>
 
 <script type="text/x-red" data-template-name="gDevice">
     <div class="form-row">
+        <label for="node-input-oauthConfig"><i class="fa fa-tag"></i> <span>OAuth2 Client</span></label>
+        <input id="node-input-oauthConfig" />
+    </div>
+    <div class="form-row">
         <label for="node-input-deviceTypeKey"><i class="fa fa-tag"></i> <span>Device Type</span></label>
         <select id="node-input-deviceTypeKey">
             <option value="" selected disabled hidden>None</option>
         </select>
         <p>https://developers.google.com/assistant/smarthome/guides</p>
+        <p id="deviceTypeDesc"></p>
     </div>
     <div class="form-row">
         <label for="node-input-deviceTraitKey"><i class="fa fa-tag"></i> <span>Device Traits</span></label>
-        <select id="node-input-deviceTraitKey">
+        <select id="node-input-deviceTraitKey" multiple style="width: 100%; height: 300px;">
             <option value="" selected disabled hidden>None</option>
         </select>
         <p>https://developers.google.com/assistant/smarthome/traits</p>
