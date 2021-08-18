@@ -97,7 +97,6 @@ module.exports = function (RED) {
     function gConfig(config) {
         const thisNode = this;
         RED.nodes.createNode(thisNode, config);
-        this.allDevices = {};
 
         if (!config.clientID) {
             thisNode.warn("Missing client id");
@@ -176,13 +175,14 @@ module.exports = function (RED) {
             }
 
             console.log("Fulfillment: ", JSON.stringify(req.body));
+            const context = thisNode.context().global.get("allDevices") || {};
             const intent = req.body.inputs[0].intent;
             if (intent === INTENT_SYNC) {
                 let response = {
                     requestId: req.body.requestId,
                     payload: {
                         agentUserId: thisNode.id,
-                        devices: Object.keys(thisNode.allDevices).map(key => { return thisNode.allDevices[key].sync })
+                        devices: Object.keys(context).map(key => { return context[key].sync })
                     }
                 }
 
@@ -195,8 +195,8 @@ module.exports = function (RED) {
 
                 payload.devices.forEach(device => {
                     deviceStates[device.id] = {
-                        online: !!thisNode.allDevices[device.id],
-                        status: !!thisNode.allDevices[device.id] ? 'SUCCESS' : 'OFFLINE'
+                        online: !!context[device.id],
+                        status: !!context[device.id] ? 'SUCCESS' : 'OFFLINE'
                         // More status data can be added
                         // ...
                     }
@@ -217,7 +217,7 @@ module.exports = function (RED) {
 
                 payload.commands.forEach(command => {
                     command.devices.forEach(device => {
-                        const storedDevice = thisNode.allDevices[device.id];
+                        const storedDevice = context[device.id];
                         if (storedDevice) {
                             succeedIDs.push(device.id);
 

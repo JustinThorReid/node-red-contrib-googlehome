@@ -5,7 +5,7 @@ module.exports = function (RED) {
     function gDeviceInNode(config) {
         var thisNode = this;
         RED.nodes.createNode(thisNode, config);
-
+        console.log('id', thisNode.id, thisNode.z);
         if (!config.oauthConfig) {
             thisNode.warn("Missing config node");
             return;
@@ -23,13 +23,14 @@ module.exports = function (RED) {
             return;
         }
 
-        this.oauthNode = RED.nodes.getNode(config.oauthConfig);
+        const context = thisNode.context().global.get("allDevices") || {};
         const deviceType = DEVICE_TYPES[config.deviceTypeKey];
         const deviceTraits = config.deviceTraitKey.map(key => DEVICE_TRAITS[key]);
 
         // Register devices
         thisNode.deviceNameList = config.deviceNames.split(',').map((name) => name.trim());
         thisNode.deviceNameList.forEach((name, index) => {
+            console.log('id', thisNode.id);
             const deviceKey = `${thisNode.id}_${name}`;
             let attributes = {};
 
@@ -39,7 +40,7 @@ module.exports = function (RED) {
                 thisNode.warn("JSON parse error for device attributes");
             }
 
-            thisNode.oauthNode.allDevices[deviceKey] = {
+            context[deviceKey] = {
                 node: thisNode,
                 name: name,
                 sendMsg: (payload) => {
@@ -63,10 +64,14 @@ module.exports = function (RED) {
                 }
             };
         });
+        thisNode.context().global.set("allDevices", context);
+
         this.on('close', function () {
+            const context = thisNode.context().global.get("allDevices") || {};
             thisNode.deviceNameList.forEach(name => {
-                delete thisNode.oauthNode.allDevices[`${thisNode.id}_${name}`];
+                delete context[`${thisNode.id}_${name}`];
             });
+            thisNode.context().global.set("allDevices", context);
         });
 
     }
