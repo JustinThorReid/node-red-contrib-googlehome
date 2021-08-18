@@ -3,7 +3,7 @@ module.exports = function (RED) {
     const DEVICE_TRAITS = require('./device-traits.json');
 
     function gDeviceInNode(config) {
-        const thisNode = this;
+        var thisNode = this;
         RED.nodes.createNode(thisNode, config);
 
         if (!config.oauthConfig) {
