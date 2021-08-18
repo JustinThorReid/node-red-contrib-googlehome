@@ -33,6 +33,7 @@ module.exports = function (RED) {
             const deviceKey = `${thisNode.id}_${name}`;
             thisNode.oauthNode.allDevices[deviceKey] = {
                 node: thisNode,
+                name: name,
                 sendMsg: (payload) => {
                     thisNode.send(thisNode.deviceNameList.map(nameToSend => {
                         if (nameToSend === name) {

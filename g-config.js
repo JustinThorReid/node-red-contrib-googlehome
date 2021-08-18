@@ -211,13 +211,14 @@ module.exports = function (RED) {
 
                 payload.commands.forEach(command => {
                     command.devices.forEach(device => {
-                        if (thisNode.allDevices[device.id]) {
+                        const storedDevice = thisNode.allDevices[device.id];
+                        if (storedDevice) {
                             succeedIDs.push(device.id);
 
                             command.execution.forEach(exec => {
-                                thisNode.allDevices[device.id].sendMsg({
+                                storedDevice.sendMsg({
                                     payload: exec,
-                                    topic: device.id
+                                    topic: storedDevice.name
                                     // Include a callback method to complete the response and record statuses
                                 })
                             })
