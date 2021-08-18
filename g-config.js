@@ -175,7 +175,7 @@ module.exports = function (RED) {
                 return;
             }
 
-            console.log("Fulfillment: ", req.body);
+            console.log("Fulfillment: ", JSON.stringify(req.body));
             const intent = req.body.inputs[0].intent;
             if (intent === INTENT_SYNC) {
                 let response = {
@@ -186,7 +186,6 @@ module.exports = function (RED) {
                     }
                 }
 
-                console.log(JSON.stringify(response));
                 res.send(response);
                 return;
             } else if (intent === INTENT_QUERY) {
