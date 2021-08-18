@@ -186,6 +186,8 @@ module.exports = function (RED) {
                     }
                 }
 
+                console.log(JSON.stringify(thisNode.allDevices));
+                console.log(JSON.stringify(response));
                 res.send(response);
                 return;
             } else if (intent === INTENT_QUERY) {
