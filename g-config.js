@@ -170,6 +170,7 @@ module.exports = function (RED) {
                 return;
             }
 
+            console.log("Fulfillment: ", res.body);
             const intent = req.body.inputs[0].intent;
             if (intent === INTENT_SYNC) {
                 let response = {
