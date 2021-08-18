@@ -65,9 +65,11 @@ function generateAccessToken(clientID, refreshOnly = false) {
         expires_at: Date.now() + 1000 * 60 * 60
     };
 
-    if (!refreshOnly) {
+    if (refreshOnly) {
+        fullToken.refresh_token = tokens[clientID].refresh_token;
+    } else {
         // Generate token
-        fullToken.access_token = crypto.randomBytes(48).toString('hex');
+        fullToken.refresh_token = crypto.randomBytes(48).toString('hex');
     }
     tokens[clientID] = fullToken;
 
@@ -146,7 +148,7 @@ module.exports = function (RED) {
                     return;
                 }
 
-                res.send(generateAccessToken(config.clientID));
+                res.send(generateAccessToken(config.clientID, false));
             }
 
             if (req.body.grant_type === 'refresh_token') {
@@ -162,8 +164,6 @@ module.exports = function (RED) {
         };
 
         this.callbackFulfillment = function (req, res) {
-            console.log('f', req.headers, req.body);
-
             const lastAccessToken = getLastAccessToken(config.clientID);
             if (!lastAccessToken || !req.headers.authorization || req.headers.authorization !== `Bearer ${lastAccessToken}`) {
                 res.sendStatus(401);
@@ -180,7 +180,6 @@ module.exports = function (RED) {
                     }
                 }
 
-                console.log('fr', JSON.stringify(response));
                 res.send(response);
                 return;
             } else if (intent === INTENT_QUERY) {
