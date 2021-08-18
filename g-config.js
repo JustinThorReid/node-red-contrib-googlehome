@@ -81,19 +81,6 @@ function generateAccessToken(clientID, refreshOnly = false) {
 }
 
 module.exports = function (RED) {
-    var httpMiddleware = function (req, res, next) { next(); }
-    if (RED.settings.httpNodeMiddleware) {
-        if (typeof RED.settings.httpNodeMiddleware === "function" || Array.isArray(RED.settings.httpNodeMiddleware)) {
-            httpMiddleware = RED.settings.httpNodeMiddleware;
-        }
-    }
-
-    var corsHandler = function (req, res, next) { next(); }
-    if (RED.settings.httpNodeCors) {
-        corsHandler = cors(RED.settings.httpNodeCors);
-        RED.httpNode.options("*", corsHandler);
-    }
-
     function gConfig(config) {
         const thisNode = this;
         RED.nodes.createNode(thisNode, config);
@@ -257,10 +244,10 @@ module.exports = function (RED) {
         }
 
         // Should require full html login for user to confirm access
-        RED.httpNode.get('/googlehome/authorize', httpMiddleware, corsHandler, this.callbackAuth, this.errorHandler);
+        RED.httpNode.get('/googlehome/authorize', this.callbackAuth);
         // Requires token returned in authorize step
-        RED.httpNode.post('/googlehome/token', httpMiddleware, corsHandler, this.callbackToken, this.errorHandler);
-        RED.httpNode.post('/googlehome/fulfillment', httpMiddleware, corsHandler, this.callbackFulfillment, this.errorHandler);
+        RED.httpNode.post('/googlehome/token', this.callbackToken);
+        RED.httpNode.post('/googlehome/fulfillment', this.callbackFulfillment);
     }
     RED.nodes.registerType("gConfig", gConfig);
 }
