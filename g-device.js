@@ -31,6 +31,14 @@ module.exports = function (RED) {
         thisNode.deviceNameList = config.deviceNames.split(',').map((name) => name.trim());
         thisNode.deviceNameList.forEach((name, index) => {
             const deviceKey = `${thisNode.id}_${name}`;
+            let attributes = {};
+
+            try {
+                attributes = JSON.parse(config.deviceAttributes || "{}");
+            } catch (err) {
+                thisNode.warn("JSON parse error for device attributes");
+            }
+
             thisNode.oauthNode.allDevices[deviceKey] = {
                 node: thisNode,
                 name: name,
@@ -47,6 +55,7 @@ module.exports = function (RED) {
                     id: deviceKey,
                     type: deviceType.googleKey,
                     traits: deviceTraits.map(trait => trait.googleKey),
+                    attributes: attributes,
                     name: {
                         name: name
                     },

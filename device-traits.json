@@ -1,43 +1,158 @@
 {
-    "AppSelector": {"display": "AppSelector", "googleKey": "action.devices.traits.AppSelector"},
-    "ArmDisarm": {"display": "ArmDisarm", "googleKey": "action.devices.traits.ArmDisarm"},
-    "Brightness": {"display": "Brightness", "googleKey": "action.devices.traits.Brightness"},
-    "CameraStream": {"display": "CameraStream", "googleKey": "action.devices.traits.CameraStream"},
-    "Channel": {"display": "Channel", "googleKey": "action.devices.traits.Channel"},
-    "ColorSetting": {"display": "ColorSetting", "googleKey": "action.devices.traits.ColorSetting"},
-    "ColorSpectrum": {"display": "ColorSpectrum", "googleKey": "action.devices.traits.ColorSpectrum"},
-    "ColorTemperature": {"display": "ColorTemperature", "googleKey": "action.devices.traits.ColorTemperature"},
-    "Cook": {"display": "Cook", "googleKey": "action.devices.traits.Cook"},
-    "Dispense": {"display": "Dispense", "googleKey": "action.devices.traits.Dispense"},
-    "Dock": {"display": "Dock", "googleKey": "action.devices.traits.Dock"},
-    "EnergyStorage": {"display": "EnergyStorage", "googleKey": "action.devices.traits.EnergyStorage"},
-    "FanSpeed": {"display": "FanSpeed", "googleKey": "action.devices.traits.FanSpeed"},
-    "Fill": {"display": "Fill", "googleKey": "action.devices.traits.Fill"},
-    "HumiditySetting": {"display": "HumiditySetting", "googleKey": "action.devices.traits.HumiditySetting"},
-    "InputSelector": {"display": "InputSelector", "googleKey": "action.devices.traits.InputSelector"},
-    "LightEffects": {"display": "LightEffects", "googleKey": "action.devices.traits.LightEffects"},
-    "Locator": {"display": "Locator", "googleKey": "action.devices.traits.Locator"},
-    "LockUnlock": {"display": "LockUnlock", "googleKey": "action.devices.traits.LockUnlock"},
-    "MediaState": {"display": "MediaState", "googleKey": "action.devices.traits.MediaState"},
-    "Modes": {"display": "Modes", "googleKey": "action.devices.traits.Modes"},
-    "NetworkControl": {"display": "NetworkControl", "googleKey": "action.devices.traits.NetworkControl"},
-    "ObjectDetection": {"display": "ObjectDetection", "googleKey": "action.devices.traits.ObjectDetection"},
-    "OnOff": {"display": "OnOff", "googleKey": "action.devices.traits.OnOff"},
-    "OpenClose": {"display": "OpenClose", "googleKey": "action.devices.traits.OpenClose"},
-    "Reboot": {"display": "Reboot", "googleKey": "action.devices.traits.Reboot"},
-    "Rotation": {"display": "Rotation", "googleKey": "action.devices.traits.Rotation"},
-    "RunCycle": {"display": "RunCycle", "googleKey": "action.devices.traits.RunCycle"},
-    "SensorState": {"display": "SensorState", "googleKey": "action.devices.traits.SensorState"},
-    "Scene": {"display": "Scene", "googleKey": "action.devices.traits.Scene"},
-    "SoftwareUpdate": {"display": "SoftwareUpdate", "googleKey": "action.devices.traits.SoftwareUpdate"},
-    "StartStop": {"display": "StartStop", "googleKey": "action.devices.traits.StartStop"},
-    "StatusReport": {"display": "StatusReport", "googleKey": "action.devices.traits.StatusReport"},
-    "TemperatureControl": {"display": "TemperatureControl", "googleKey": "action.devices.traits.TemperatureControl"},
-    "TemperatureSetting": {"display": "TemperatureSetting", "googleKey": "action.devices.traits.TemperatureSetting"},
-    "Timer": {"display": "Timer", "googleKey": "action.devices.traits.Timer"},
-    "Toggles": {"display": "Toggles", "googleKey": "action.devices.traits.Toggles"},
-    "TransportControl": {"display": "TransportControl", "googleKey": "action.devices.traits.TransportControl"},
-    "Volume": {"display": "Volume", "googleKey": "action.devices.traits.Volume"}    
+    "AppSelector": {
+        "display": "AppSelector",
+        "googleKey": "action.devices.traits.AppSelector"
+    },
+    "ArmDisarm": {
+        "display": "ArmDisarm",
+        "googleKey": "action.devices.traits.ArmDisarm"
+    },
+    "Brightness": {
+        "display": "Brightness",
+        "googleKey": "action.devices.traits.Brightness"
+    },
+    "CameraStream": {
+        "display": "CameraStream",
+        "googleKey": "action.devices.traits.CameraStream"
+    },
+    "Channel": {
+        "display": "Channel",
+        "googleKey": "action.devices.traits.Channel"
+    },
+    "ColorSetting": {
+        "display": "ColorSetting",
+        "googleKey": "action.devices.traits.ColorSetting"
+    },
+    "ColorSpectrum": {
+        "display": "ColorSpectrum",
+        "googleKey": "action.devices.traits.ColorSpectrum"
+    },
+    "ColorTemperature": {
+        "display": "ColorTemperature",
+        "googleKey": "action.devices.traits.ColorTemperature"
+    },
+    "Cook": {
+        "display": "Cook",
+        "googleKey": "action.devices.traits.Cook"
+    },
+    "Dispense": {
+        "display": "Dispense",
+        "googleKey": "action.devices.traits.Dispense"
+    },
+    "Dock": {
+        "display": "Dock",
+        "googleKey": "action.devices.traits.Dock"
+    },
+    "EnergyStorage": {
+        "display": "EnergyStorage",
+        "googleKey": "action.devices.traits.EnergyStorage"
+    },
+    "FanSpeed": {
+        "display": "FanSpeed",
+        "googleKey": "action.devices.traits.FanSpeed"
+    },
+    "Fill": {
+        "display": "Fill",
+        "googleKey": "action.devices.traits.Fill"
+    },
+    "HumiditySetting": {
+        "display": "HumiditySetting",
+        "googleKey": "action.devices.traits.HumiditySetting"
+    },
+    "InputSelector": {
+        "display": "InputSelector",
+        "googleKey": "action.devices.traits.InputSelector"
+    },
+    "LightEffects": {
+        "display": "LightEffects",
+        "googleKey": "action.devices.traits.LightEffects"
+    },
+    "Locator": {
+        "display": "Locator",
+        "googleKey": "action.devices.traits.Locator"
+    },
+    "LockUnlock": {
+        "display": "LockUnlock",
+        "googleKey": "action.devices.traits.LockUnlock"
+    },
+    "MediaState": {
+        "display": "MediaState",
+        "googleKey": "action.devices.traits.MediaState"
+    },
+    "Modes": {
+        "display": "Modes",
+        "googleKey": "action.devices.traits.Modes"
+    },
+    "NetworkControl": {
+        "display": "NetworkControl",
+        "googleKey": "action.devices.traits.NetworkControl"
+    },
+    "ObjectDetection": {
+        "display": "ObjectDetection",
+        "googleKey": "action.devices.traits.ObjectDetection"
+    },
+    "OnOff": {
+        "display": "OnOff",
+        "googleKey": "action.devices.traits.OnOff"
+    },
+    "OpenClose": {
+        "display": "OpenClose",
+        "googleKey": "action.devices.traits.OpenClose"
+    },
+    "Reboot": {
+        "display": "Reboot",
+        "googleKey": "action.devices.traits.Reboot"
+    },
+    "Rotation": {
+        "display": "Rotation",
+        "googleKey": "action.devices.traits.Rotation"
+    },
+    "RunCycle": {
+        "display": "RunCycle",
+        "googleKey": "action.devices.traits.RunCycle"
+    },
+    "SensorState": {
+        "display": "SensorState",
+        "googleKey": "action.devices.traits.SensorState"
+    },
+    "Scene": {
+        "display": "Scene",
+        "googleKey": "action.devices.traits.Scene"
+    },
+    "SoftwareUpdate": {
+        "display": "SoftwareUpdate",
+        "googleKey": "action.devices.traits.SoftwareUpdate"
+    },
+    "StartStop": {
+        "display": "StartStop",
+        "googleKey": "action.devices.traits.StartStop"
+    },
+    "StatusReport": {
+        "display": "StatusReport",
+        "googleKey": "action.devices.traits.StatusReport"
+    },
+    "TemperatureControl": {
+        "display": "TemperatureControl",
+        "googleKey": "action.devices.traits.TemperatureControl"
+    },
+    "TemperatureSetting": {
+        "display": "TemperatureSetting",
+        "googleKey": "action.devices.traits.TemperatureSetting"
+    },
+    "Timer": {
+        "display": "Timer",
+        "googleKey": "action.devices.traits.Timer"
+    },
+    "Toggles": {
+        "display": "Toggles",
+        "googleKey": "action.devices.traits.Toggles"
+    },
+    "TransportControl": {
+        "display": "TransportControl",
+        "googleKey": "action.devices.traits.TransportControl"
+    },
+    "Volume": {
+        "display": "Volume",
+        "googleKey": "action.devices.traits.Volume"
+    }
 }
-
-
