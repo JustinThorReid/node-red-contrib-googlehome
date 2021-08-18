@@ -186,7 +186,7 @@ module.exports = function (RED) {
                     }
                 }
 
-                console.log(response);
+                console.log(JSON.stringify(response));
                 res.send(response);
                 return;
             } else if (intent === INTENT_QUERY) {
