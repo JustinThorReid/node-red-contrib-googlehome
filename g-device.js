@@ -6,6 +6,7 @@ module.exports = function (RED) {
         var thisNode = this;
         RED.nodes.createNode(thisNode, config);
         console.log('id', thisNode.id, thisNode.z);
+        console.log(this);
 
         if (!config.oauthConfig) {
             thisNode.warn("Missing config node");
