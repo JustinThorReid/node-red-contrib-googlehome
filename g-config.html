@@ -1,31 +1,42 @@
 <script type="text/javascript">
-    RED.nodes.registerType('gConfig', {
-        category: 'config',
-        color: '#a6bbcf',
-        defaults: {
-            clientID: { value: "", required: true },
-            clientSecret: { value: "", required: true },
-        },
-        inputs: 0,
-        outputs: 0,
-        icon: "fitbit-128.png",
-        label: function () {
-            return 'Google Home';
-        },
-    });
+  RED.nodes.registerType("gConfig", {
+    category: "config",
+    color: "#a6bbcf",
+    defaults: {
+      clientID: { value: "", required: true },
+      clientSecret: { value: "", required: true },
+    },
+    inputs: 0,
+    outputs: 0,
+    icon: "fitbit-128.png",
+    label: function () {
+      return "Google Home";
+    },
+  });
 </script>
 
 <script type="text/x-red" data-template-name="gConfig">
-    <div class="form-row">
-        <label for="node-config-input-clientID"><i class="fa fa-tag"></i> <span>Client ID</span></label>
-        <input id="node-config-input-clientID" type="text" />
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-clientSecret"><i class="fa fa-tag"></i> <span>Client Secret</span></label>
-        <input id="node-config-input-clientSecret" type="text" />
-    </div>
+  <div class="form-row">
+      <label for="node-config-input-clientID"><i class="fa fa-tag"></i> <span>Client ID</span></label>
+      <input id="node-config-input-clientID" type="text" />
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-clientSecret"><i class="fa fa-tag"></i> <span>Client Secret</span></label>
+      <input id="node-config-input-clientSecret" type="text" />
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="gConfig">
-    <p>Hard coded OAuth2 client settings, allows for only 1 client.</p>
+  <p>Hard coded OAuth2 client settings, allows for only 1 client. Google will act as the OAuth <strong>client</strong>.
+      <a href="https://developers.home.google.com/cloud-to-cloud/get-started">Setup Documentation</a></p>
+  <p><h2>Client ID</h2> Any string you want to use as the client ID Google will use to authenticate</p>
+  <p><h2>Client Secret</h2> Any string you want to use as the client Secret Google will use to authenticate</p>
+  <p></p>
+  <p>Relevant URLs:
+      <ul>
+          <li>/googlehome/authorize</li>
+          <li>/googlehome/token</li>
+          <li>/googlehome/fulfillment</li>
+      </ul>
+  </p>
 </script>
